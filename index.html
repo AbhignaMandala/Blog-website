@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog-Illuminate Your Mind</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --gray: #dfe6e9;
+            --success: #00b894;
+            --danger: #d63031;
+            --warning: #fdcb6e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--warning);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons .btn {
+            margin-left: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #00b5b2;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Featured Posts */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .featured-posts {
+            padding: 4rem 0;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image img {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #740303;
+        }
+
+        .post-category {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .post-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .category-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .category-card:hover i {
+            color: white;
+        }
+
+        .category-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .category-card:hover p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0 1.5rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #00b5b2;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header-container {
+                position: relative;
+            }
+
+            .mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-dark);
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                display: none;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+            }
+
+            .mobile-menu ul li {
+                margin-bottom: 1rem;
+            }
+
+            .mobile-menu ul li a {
+                color: white;
+                text-decoration: none;
+                display: block;
+                padding: 0.5rem;
+            }
+
+            .hero {
+                height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 4px;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 40vh;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+        body.dark-mode .post-card,
+        body.dark-mode .categories {
+            background-color: #1e1e1e;
+        }
+
+        body.dark-mode .post-title,
+        body.dark-mode .section-title h2,
+        body.dark-mode .footer-col h3 {
+            color: #f5f5f5;
+        }
+
+        body.dark-mode .post-excerpt,
+        body.dark-mode .post-meta,
+        body.dark-mode .category-card p {
+            color: #b0b0b0;
+        }
+
+        body.dark-mode .category-card {
+            background-color: #2d2d2d;
+        }
+
+        body.dark-mode .category-card:hover {
+            background-color: var(--primary);
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: #1e1e1e;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        body.dark-mode .form-group input {
+            background-color: #2d2d2d;
+            border-color: #444;
+            color: #f5f5f5;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray);
+        }
+
+        .modal-footer p {
+            color: #666;
+        }
+
+        body.dark-mode .modal-footer p {
+            color: #b0b0b0;
+        }
+
+        .switch-form {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-blog"></i>
+                <span>Lumina</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="login-btn">Login</button>
+                <button class="btn btn-primary" id="register-btn">Register</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="container hero-content">
+            <h1 class="slide-up">Illuminate Your Mind With Knowledge</h1>
+            <p class="slide-up">Discover insightful articles on technology, design, business, and more from our community of expert writers.</p>
+            <div class="slide-up">
+                <a href="#" class="btn btn-primary btn-lg">Start Reading</a>
+                <a href="#" class="btn btn-outline btn-lg">Join Our Community</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="featured-posts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Articles</h2>
+            </div>
+            <div class="posts-grid">
+                <!-- Post 1 -->
+                <div class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Web Development">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>June 15, 2023</span>
+                            <span class="post-category">Technology</span>
+                        </div>
+                        <h3 class="post-title">The Future of Web Development in 2023</h3>
+                        <p class="post-excerpt">Explore the latest trends and technologies shaping the future of web development this year and beyond.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>June 10, 2023</span>
+                            <span class="post-category" style="background-color: var(--secondary);">Data Science</span>
+                        </div>
+                        <h3 class="post-title">Machine Learning for Beginners: A Comprehensive Guide</h3>
+                        <p class="post-excerpt">Start your journey into machine learning with this beginner-friendly guide covering all the fundamentals.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="post-card">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Productivity">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span>June 5, 2023</span>
+                            <span class="post-category" style="background-color: var(--success);">Productivity</span>
+                        </div>
+                        <h3 class="post-title">10 Productivity Hacks for Remote Workers</h3>
+                        <p class="post-excerpt">Boost your productivity while working from home with these proven strategies from top remote professionals.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Categories</h2>
+            </div>
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Technology</h3>
+                    <p>Latest in tech, programming, and innovation</p>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Business</h3>
+                    <p>Entrepreneurship, startups, and finance</p>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Design</h3>
+                    <p>UI/UX, graphic design, and creativity</p>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Psychology</h3>
+                    <p>Mind, behavior, and mental health</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest articles and news delivered straight to your inbox every week.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" class="btn btn-secondary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1 -->
+                <div class="footer-col">
+                    <h3>Lumina Blog</h3>
+                    <p>Illuminate your mind with knowledge and insights from our expert writers around the world.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Psychology</a></li>
+                        <li><a href="#">Productivity</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Blog Street, San Francisco</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@luminablog.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Lumina Blog. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-login-modal">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-actions">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <span class="switch-form" id="switch-to-register">Register</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-register-modal">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+            <div class="modal-footer">
+                <p>Already have an account? <span class="switch-form" id="switch-to-login">Login</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Modal Handling
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const closeLoginModal = document.getElementById('close-login-modal');
+        const closeRegisterModal = document.getElementById('close-register-modal');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+
+        // Open Login Modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Open Register Modal
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close Modals
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        closeRegisterModal.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Switch between Login and Register
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Form Submissions
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+            loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Registration functionality would be implemented here');
+            registerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Newsletter Form
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}!`);
+            e.target.querySelector('input').value = '';
+        });
+
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.post-card, .category-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        document.querySelectorAll('.post-card, .category-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        // Run animation on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
